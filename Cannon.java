@@ -29,6 +29,7 @@ public class Cannon extends Actor
                 CannonBall ball = new CannonBall();
                 ball.setVelocity(cannonToMouse);
                 getWorld().addObject(ball, getX(), getY());
+                Greenfoot.playSound("cannonSound.wav");
             }
         }
     }    
