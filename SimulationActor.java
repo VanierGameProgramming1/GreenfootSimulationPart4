@@ -90,8 +90,19 @@ public class SimulationActor extends Actor
         return world.worldToWindow(windowCoordinates);
     }
 
+    protected Vector2D worldToWindow(Vector2D windowCoordinates)
+    {
+        SimulationWorld world = (SimulationWorld) getWorld();
+        return world.worldToWindow(windowCoordinates);
+    }
     
     protected Point2D windowToWorld(Point2D windowCoordinates)
+    {
+        SimulationWorld world = (SimulationWorld) getWorld();
+        return world.windowToWorld(windowCoordinates);
+    }
+
+    protected Vector2D windowToWorld(Vector2D windowCoordinates)
     {
         SimulationWorld world = (SimulationWorld) getWorld();
         return world.windowToWorld(windowCoordinates);
