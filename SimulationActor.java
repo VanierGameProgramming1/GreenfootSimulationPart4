@@ -1,4 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.awt.*; 
+import java.awt.image.*; 
 
 /**
  * Write a description of class SimulationActor here.
@@ -12,7 +14,7 @@ public class SimulationActor extends Actor
     protected Vector2D velocity;
     protected Vector2D acceleration;
 
-    protected GreenfootImage originalImage;
+    protected BufferedImage originalImage;
     
     public SimulationActor()
     {
@@ -27,6 +29,7 @@ public class SimulationActor extends Actor
         this.position = position;
         this.velocity = velocity;
         this.acceleration = acceleration;
+        originalImage = null;
     }
     
     public void act() 
@@ -44,10 +47,12 @@ public class SimulationActor extends Actor
         
         if (originalImage == null && getImage() != null)
         {
-            originalImage = new GreenfootImage(getImage().getWidth(), 
-                                               getImage().getHeight());
-            originalImage.drawImage(getImage(), getImage().getWidth(), 
-                                               getImage().getHeight());
+            BufferedImage img = getImage().getAwtImage();
+            originalImage = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
+
+            Graphics g = originalImage.getGraphics();
+            g.drawImage(img, 0, 0, null);
+            g.dispose();
         }
 
         
@@ -79,7 +84,7 @@ public class SimulationActor extends Actor
         setLocation((int) windowLocation.getX(), (int) windowLocation.getY());
     }
     
-    public GreenfootImage getOriginalImage()
+    public BufferedImage getOriginalImage()
     {
         return originalImage;
     }
