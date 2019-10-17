@@ -19,6 +19,16 @@ public class Vector2D
         return y;
     }
 
+    public void setX(double value)
+    {
+        x = value;
+    }
+    
+    public void setY(double value)
+    {
+        y = value;
+    }
+
     public void negate()
     {
         x = -x;

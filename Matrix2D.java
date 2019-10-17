@@ -9,7 +9,7 @@ public class Matrix2D
         // initialize to identity matrix
         for (int i=0; i<3; ++i)
         {
-            for (int j=0; j<2; ++j)
+            for (int j=0; j<3; ++j)
             {
                 if (i == j)
                 {
@@ -70,7 +70,7 @@ public class Matrix2D
         
         for (int i=0; i<3; ++i)
         {
-            for (int j=0; j<2; ++j)
+            for (int j=0; j<3; ++j)
             {
                 mat.m[i][j] = lhs.m[i][0]*rhs.m[0][j] +
                               lhs.m[i][1]*rhs.m[1][j] +

@@ -20,6 +20,16 @@ public class Point2D
         return y;
     }
     
+    public void setX(double value)
+    {
+        x = value;
+    }
+    
+    public void setY(double value)
+    {
+        y = value;
+    }
+
     public void add(Vector2D v)
     {
         x += v.getX();
