@@ -47,12 +47,7 @@ public class SimulationActor extends Actor
         
         if (originalImage == null && getImage() != null)
         {
-            BufferedImage img = getImage().getAwtImage();
-            originalImage = new GreenfootImage(img.getWidth(), img.getHeight());
-
-            Graphics g = originalImage.getAwtImage().getGraphics();
-            g.drawImage(img, 0, 0, null);
-            g.dispose();
+            saveOriginalImage();
         }
 
         
@@ -72,6 +67,33 @@ public class SimulationActor extends Actor
         setLocation(position);
     }
 
+    public void saveOriginalImage()
+    {
+        BufferedImage img = getImage().getAwtImage();
+        originalImage = new GreenfootImage(img.getWidth(), img.getHeight());
+
+        Graphics g = originalImage.getAwtImage().getGraphics();
+        g.drawImage(img, 0, 0, null);
+        g.dispose();        
+    }
+    
+    public void scaleImage(double zoomRatio)
+    {
+        if (originalImage != null)
+        {
+            int imageWidth = originalImage.getWidth();
+            int imageHeight = originalImage.getHeight();
+
+            GreenfootImage scaledImage = new GreenfootImage(imageWidth, imageHeight);
+            BufferedImage gBufImg = scaledImage.getAwtImage();
+            Graphics2D graphics = (Graphics2D)gBufImg.getGraphics();
+            graphics.drawImage(originalImage.getAwtImage(), null, 0, 0);
+            graphics.dispose();
+            scaledImage.scale((int)Math.max(imageWidth*zoomRatio, 1.0), (int)Math.max(imageHeight*zoomRatio, 1.0));
+            setImage(scaledImage);
+        }
+    }
+    
     public void setVelocity(Vector2D newValue)
     {
         velocity = newValue;
@@ -82,11 +104,6 @@ public class SimulationActor extends Actor
         SimulationWorld world = (SimulationWorld) getWorld();
         Point2D windowLocation = world.worldToWindow(worldLocation);
         setLocation((int) windowLocation.getX(), (int) windowLocation.getY());
-    }
-    
-    public GreenfootImage getOriginalImage()
-    {
-        return originalImage;
     }
     
     protected Point2D worldToWindow(Point2D windowCoordinates)

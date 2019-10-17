@@ -2,6 +2,8 @@
 comment0.target=SimulationWorld
 comment1.params=windowWidth\ windowHeight\ cameraCenter\ cameraWidth
 comment1.target=SimulationWorld(int,\ int,\ Point2D,\ double)
+comment10.params=
+comment10.target=double\ getZoomRatio()
 comment2.params=
 comment2.target=void\ started()
 comment3.params=
@@ -18,4 +20,4 @@ comment8.params=windowCoord
 comment8.target=Vector2D\ windowToWorld(Vector2D)
 comment9.params=
 comment9.target=void\ scaleActors()
-numComments=10
+numComments=11
