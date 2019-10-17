@@ -83,7 +83,7 @@ public class SimulationWorld extends World
         for (int i=0; i<actors.size(); i++)
         {
             SimulationActor actor = actors.get(i);
-            BufferedImage original = actor.getOriginalImage();
+            GreenfootImage original = actor.getOriginalImage();
             
             if (original != null)
             {
@@ -93,7 +93,7 @@ public class SimulationWorld extends World
                 GreenfootImage gImage = new GreenfootImage(imageWidth, imageHeight);
                 BufferedImage gBufImg = gImage.getAwtImage();
                 Graphics2D graphics = (Graphics2D)gBufImg.getGraphics();
-                graphics.drawImage(original, null, 0, 0);
+                graphics.drawImage(original.getAwtImage(), null, 0, 0);
                 graphics.dispose();
                 gImage.scale((int)Math.max(imageWidth*zoomRatio, 1.0), (int)Math.max(imageHeight*zoomRatio, 1.0));
                 actor.setImage(gImage);

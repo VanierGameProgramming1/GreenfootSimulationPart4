@@ -14,7 +14,7 @@ public class SimulationActor extends Actor
     protected Vector2D velocity;
     protected Vector2D acceleration;
 
-    protected BufferedImage originalImage;
+    protected GreenfootImage originalImage;
     
     public SimulationActor()
     {
@@ -48,9 +48,9 @@ public class SimulationActor extends Actor
         if (originalImage == null && getImage() != null)
         {
             BufferedImage img = getImage().getAwtImage();
-            originalImage = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
+            originalImage = new GreenfootImage(img.getWidth(), img.getHeight());
 
-            Graphics g = originalImage.getGraphics();
+            Graphics g = originalImage.getAwtImage().getGraphics();
             g.drawImage(img, 0, 0, null);
             g.dispose();
         }
@@ -84,7 +84,7 @@ public class SimulationActor extends Actor
         setLocation((int) windowLocation.getX(), (int) windowLocation.getY());
     }
     
-    public BufferedImage getOriginalImage()
+    public GreenfootImage getOriginalImage()
     {
         return originalImage;
     }
