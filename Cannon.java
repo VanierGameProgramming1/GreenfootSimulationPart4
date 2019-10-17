@@ -6,12 +6,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Cannon extends Actor
+public class Cannon extends SimulationActor
 {
-    private final static double CANNON_BALL_VELOCITY = 1500.0;
+    private final static double CANNON_BALL_VELOCITY = 20.0;
     
     public void act() 
     {
+        super.act();
+        
         MouseInfo mouse = Greenfoot.getMouseInfo();
         
         if (mouse != null)
@@ -23,12 +25,21 @@ public class Cannon extends Actor
             
             if (Greenfoot.mouseClicked(null))
             {
+                // Calculate Velocity Vector
+                cannonToMouse = windowToWorld(cannonToMouse);
                 cannonToMouse.normalize();
                 cannonToMouse = Vector2D.multiply(cannonToMouse, CANNON_BALL_VELOCITY);
                 
+                // Shoot cannon ball with velocity
                 CannonBall ball = new CannonBall();
                 ball.setVelocity(cannonToMouse);
-                getWorld().addObject(ball, getX(), getY());
+                SimulationWorld world = (SimulationWorld) getWorld();
+                world.addObject(ball, getX(), getY());
+                
+                // Adjust ball size according to zoom value
+                ball.saveOriginalImage();
+                ball.scaleImage(world.getZoomRatio());
+                
                 Greenfoot.playSound("cannonSound.wav");
             }
         }

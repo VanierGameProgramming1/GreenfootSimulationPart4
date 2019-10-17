@@ -8,30 +8,47 @@ import java.util.*;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Target extends Actor
+public class Target extends SimulationActor
 {
+    private boolean broken;
+    
+    public Target()
+    {
+        super();
+        broken = false;
+    }
+    
     /**
      * Act - do whatever the Target wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
     {
-        List<CannonBall> balls = getWorld().getObjects(CannonBall.class);
+        super.act();
         
-        for (int i=0; i < balls.size(); i++)
+        if (broken == false)
         {
-            CannonBall ball = balls.get(i);
+            SimulationWorld world = (SimulationWorld) getWorld();
+            List<CannonBall> balls = world.getObjects(CannonBall.class);
             
-            Vector2D targetToBall = new Vector2D(ball.getX() - getX(), ball.getY() - getY());
-            double distance = targetToBall.magnitude();
-            
-            double ballRadius = ball.getImage().getHeight() / 2;
-            double targetRadius = getImage().getHeight() / 2;
-            
-            if (distance < ballRadius + targetRadius)
+            for (int i=0; i < balls.size(); i++)
             {
-                setImage("targetDestroyed.png");
-                Greenfoot.playSound("explosion.wav");
+                CannonBall ball = balls.get(i);
+                
+                Vector2D targetToBall = new Vector2D(ball.getX() - getX(), ball.getY() - getY());
+                double distance = targetToBall.magnitude();
+                
+                double ballRadius = ball.getImage().getHeight() / 2;
+                double targetRadius = getImage().getHeight() / 2;
+                
+                if (distance < ballRadius + targetRadius)
+                {
+                    setImage("targetDestroyed.png");
+                    saveOriginalImage();
+                    scaleImage(world.getZoomRatio());
+                    Greenfoot.playSound("explosion.wav");
+                    broken = true;
+                }
             }
         }
     }    

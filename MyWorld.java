@@ -6,34 +6,47 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MyWorld extends World
+public class MyWorld extends SimulationWorld
 {
-    private long lastFrameTimeMS;
-    private double timeStepDuration;
-
+    private final static double CAMERA_SPEED = 5.0; // 1 meter per second
+    
     public MyWorld()
     {    
-        super(1024, 768, 1, false); 
+        super(1024, 768, new Point2D(8.0, 6.0), 16.0); 
 
-        lastFrameTimeMS = System.currentTimeMillis();
-        timeStepDuration = 1.0 / 60; // seems to be the default
         prepare();
-    }
-
-    public void started()
-    {
-        lastFrameTimeMS = System.currentTimeMillis();
     }
 
     public void act()
     {
-        timeStepDuration = (System.currentTimeMillis() - lastFrameTimeMS) / 1000.0;
-        lastFrameTimeMS = System.currentTimeMillis();
+        super.act();
+        moveCamera();
     }
 
-    public double getTimeStepDuration()
+    public void moveCamera()
     {
-        return timeStepDuration;
+        double dt = getTimeStepDuration();
+        
+        if (Greenfoot.isKeyDown("a")){
+            cameraCenter.setX(cameraCenter.getX() - CAMERA_SPEED * dt);
+        }
+        if (Greenfoot.isKeyDown("d")){
+            cameraCenter.setX(cameraCenter.getX() + CAMERA_SPEED * dt);
+        }
+        if (Greenfoot.isKeyDown("s")){
+            cameraCenter.setY(cameraCenter.getY() - CAMERA_SPEED * dt);
+        }        
+        if (Greenfoot.isKeyDown("w")){
+            cameraCenter.setY(cameraCenter.getY() + CAMERA_SPEED * dt);
+        }
+        if (Greenfoot.isKeyDown("-")){
+            cameraWidth += CAMERA_SPEED * dt;
+            scaleActors();
+        }
+        if (Greenfoot.isKeyDown("=") || Greenfoot.isKeyDown("+")){
+            cameraWidth -= CAMERA_SPEED * dt;
+            scaleActors();
+        }    
     }
 
     /**
