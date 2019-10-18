@@ -94,11 +94,36 @@ public class SimulationActor extends Actor
         }
     }
     
+    public Point2D getPosition()
+    {
+        return position;
+    }
+    
+    public Vector2D getVelocity()
+    {
+        return velocity;
+    }
+
+    public Vector2D getAcceleration()
+    {
+        return acceleration;
+    }
+
+    public void setPosition(Point2D newValue)
+    {
+        position = newValue;
+    }
+    
     public void setVelocity(Vector2D newValue)
     {
         velocity = newValue;
     }
-    
+
+    public void setAcceleration(Vector2D newValue)
+    {
+        acceleration = newValue;
+    }
+
     public void setLocation(Point2D worldLocation)
     {
         SimulationWorld world = (SimulationWorld) getWorld();

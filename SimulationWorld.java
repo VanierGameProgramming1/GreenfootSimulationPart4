@@ -54,6 +54,11 @@ public class SimulationWorld extends World
         return timeStepDuration;
     }
 
+    public double worldToWindow(double worldValue)
+    {
+        return worldValue * getWidth() / cameraWidth;
+    }
+
     public Point2D worldToWindow(Point2D worldCoord)
     {
         return toWindowMatrix.transform(worldCoord);
@@ -62,6 +67,11 @@ public class SimulationWorld extends World
     public Vector2D worldToWindow(Vector2D worldCoord)
     {
         return toWindowMatrix.transform(worldCoord);
+    }
+    
+    public double windowToWorld(double windowValue)
+    {
+        return windowValue * cameraWidth / getWidth();
     }
     
     public Point2D windowToWorld(Point2D windowCoord)
